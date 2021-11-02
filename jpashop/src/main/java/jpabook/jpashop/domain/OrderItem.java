@@ -14,11 +14,14 @@ public class OrderItem {
     @Column(name = "order_item_id") // 매핑을 위해 primary key는 "ORDER_ITEM_ID"
     private Long id;
 
-    @ManyToOne // OrderItem과 Item은 다대일 관계
+    @ManyToOne(fetch = FetchType.LAZY) // OrderItem과 Item은 다대일 관계
+    // XToOne(OneToOne, ManyToOne) 관계는 기본이 즉시로딩(EAGER)이므로 지연로딩(LAZY)로 설정해야한다.
     @JoinColumn(name = "item_id") // 매핑을 ITEM_ID가 연관관계 주인
     private Item item;
 
-    @ManyToOne // OrderItem과 Order는 다대일 관계
+    @ManyToOne(fetch = FetchType.LAZY) // OrderItem과 Order는 다대일 관계
+    // XToOne(OneToOne, ManyToOne) 관계는 기본이 즉시로딩(EAGER)이므로 지연로딩(LAZY)로 설정해야한다.
+
     @JoinColumn(name = "order_id") // 매핑을 ORDER_ID가 연관관계 주인
     // Order에도 orderItems가 있고 OrderItem에도 order가 있다.
     // 양방향 연관관계

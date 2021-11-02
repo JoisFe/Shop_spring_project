@@ -26,6 +26,4 @@ public class Member {
     // 여기에 값을 넣는다고 해서 foreign key (Member의 member_id) 값이 바뀌지 않음
 
     private List<Order> orders = new ArrayList<>();
-
-
 }

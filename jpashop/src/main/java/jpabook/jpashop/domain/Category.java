@@ -27,7 +27,9 @@ public class Category {
     // 일대다, 다대일 관계 풀어내는 중간 테이블이 존재해야 한다!!
     private List<Item> items = new ArrayList<>();
 
-    @ManyToOne // 해당 클래스 부모이니 Category와 부모 다대일 관계
+    @ManyToOne(fetch = FetchType.LAZY) // 해당 클래스 부모이니 Category와 부모 다대일 관계
+    // XToOne(OneToOne, ManyToOne) 관계는 기본이 즉시로딩(EAGER)이므로 지연로딩(LAZY)로 설정해야한다.
+
     @JoinColumn(name = "parent_id") // 매핑을 위한 부모는 primary key가 "PARENT_ID"
     private Category parent; // Category구조는 계층구조 인데 부모에 대한
 
@@ -36,4 +38,12 @@ public class Category {
     // 셀프로 양방향 연관관계를 것 것으로 볼 수 있음
     // 이름만 내 것이지 다른 Entity처럼 매핑하는 것으로 연관관계를 지어주면 됨
     private List<Category> child = new ArrayList<>();
+
+    //==연관관계 메서드==//
+
+    // Category는 부모 자식관의 양방향 관계임
+    public void addChildCategory(Category child) {
+        this.child.add(child);
+        child.setParent(this); // 자식에게도 자신을 넣어줌
+    }
 }

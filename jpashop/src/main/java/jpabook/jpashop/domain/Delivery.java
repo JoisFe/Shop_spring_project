@@ -13,7 +13,8 @@ public class Delivery {
     @Column(name = "delivery_id") // 매핑을 위해 primary key는 "DELIVERY_ID"
     private Long id;
 
-    @OneToOne(mappedBy = "delivery") // Delivery와 Order 간은 일대일 관계
+    @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY) // Delivery와 Order 간은 일대일 관계
+    // XToOne(OneToOne, ManyToOne) 관계는 기본이 즉시로딩(EAGER)이므로 지연로딩(LAZY)로 설정해야한다.
     // Order에 delivery로 매핑이 됨
     private Order order;
 
